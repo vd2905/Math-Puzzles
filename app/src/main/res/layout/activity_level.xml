@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2.2"
+        android:text="Select Puzzle"
+        android:textSize="30dp"
+        android:gravity="center"
+        android:textStyle="italic|bold"
+        android:textColor="@color/purple_700">
+
+    </TextView>
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3"
+        android:layout_weight="0.7"
+        >
+
+    </GridView>
+
+    <ImageView
+        android:layout_width="113dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:layout_margin="@dimen/_15sdp"
+        android:layout_weight="2"
+        android:src="@drawable/next">
+
+    </ImageView>
+</LinearLayout>
