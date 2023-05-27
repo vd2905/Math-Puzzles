@@ -19,7 +19,7 @@
             android:id="@+id/skip_button"
             android:layout_margin="@dimen/_15sdp"
             android:layout_weight="1.5"
-            android:src="@drawable/img6" />
+            android:src="@drawable/skip" />
 
         <TextView
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:layout_height="match_parent"
             android:id="@+id/hint"
             android:layout_weight="1.5"
-            android:src="@drawable/img5"
+            android:src="@drawable/hint"
             android:layout_margin="@dimen/_15sdp"/>
 
     </LinearLayout>

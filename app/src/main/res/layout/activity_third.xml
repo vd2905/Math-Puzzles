@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/level"
+        android:id="@+id/win_level"
         android:layout_weight="2"
         android:text="PUZZLE 1 COMPLETED"
         android:textColor="#6004E4"
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2"
-        android:id="@+id/activity_third_txt1"
+        android:id="@+id/continue_button"
         android:background="@drawable/bg1"
         android:text="CONTINUE"
         android:textColor="@color/black"
@@ -44,7 +44,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/activity_third_txt2"
+        android:id="@+id/main_button"
         android:background="@drawable/bg1"
         android:layout_weight="2"
         android:text="MAIN MENU"

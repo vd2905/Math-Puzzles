@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,12 +25,12 @@ import java.util.List;
 
 public class SecondActivity extends AppCompatActivity implements View.OnClickListener {
 
-    String[] ansArr = {"10","25","6","14","128","7","50","1025","100","3","212","3011","14","16","1","2","44","45","625","1","13","47","50","34","6","41"};
+    //String[] ansArr = {"10","25","6","14","128","7","50","1025","100","3","212","3011","14","16","1","2","44","45","625","1","13","47","50","34","6","41"};
     ImageView imageView,skip,hint,delete;
     TextView ans,submit,level;
     TextView[] btn = new TextView[10];
     String s="";
-    int levelNo=0;
+    int levelNo=1;
     private ArrayList<String> imgArr=new ArrayList<>();
     private List<String> arrayList=new ArrayList<>();
 
@@ -38,17 +39,18 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
         imageView = findViewById(R.id.imageView);
-        level=findViewById(R.id.level);
         levelNo=getIntent().getIntExtra("levelNo",0);
         getImage();
         hint=findViewById(R.id.hint);
         ans=findViewById(R.id.ans_field);
         delete=findViewById(R.id.delete);
         submit=findViewById(R.id.submit);
+        level=findViewById(R.id.level);
+        level.setText("Puzzle "+(levelNo+1));
         skip=findViewById(R.id.skip_button);
 
-        level.setText("Puzzle "+(levelNo+1));
 
         hint.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,20 +69,34 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                 alertDialog.show();
             }
         });
-
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
-                levelNo++;
-                editor.putInt("levelNo",levelNo);
-                editor.putString("levelStatus"+levelNo,"skip");
-                editor.commit();
+                if(levelNo<=24) {
+                    AlertDialog.Builder builder=new AlertDialog.Builder(SecondActivity.this);
+                    builder.setTitle("Skip");
+                    builder.setMessage("Are you sure you want to skip this level without playing?");
+                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            levelNo++;
+                            getImage();
+                            level.setText("Puzzle "+(levelNo+1));
+                            editor.putInt("levelNo",levelNo);
+                            editor.putString("levelStatus"+(levelNo),"skip");
+                            editor.commit();
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            builder.setCancelable(true);
+                        }
+                    });
+                    builder.show();
 
-                Intent  intent=new Intent(SecondActivity.this,SecondActivity.class);
-                intent.putExtra("levelNo",levelNo);
-                startActivity(intent);
-                finish();
+                }
             }
         });
 
@@ -106,11 +122,11 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ans.getText().toString().equals(ansArr[levelNo]))
+                if(ans.getText().toString().equals(config.ansArr[levelNo]))
                 {
                     levelNo++;
                     editor.putInt("levelNo",levelNo);
-                    editor.putString("levelStatus"+(levelNo-1),"win");
+                    editor.putString("levelStatus"+(levelNo),"win");
                     editor.commit();
 
                     Intent intent=new Intent(SecondActivity.this, ThirdActivity.class);
@@ -118,36 +134,44 @@ public class SecondActivity extends AppCompatActivity implements View.OnClickLis
                     startActivity(intent);
                     finish();
                 }
+                else
+                {
+                    Toast.makeText(SecondActivity.this, "Wrong Answer", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
     }
     private void getImage()
     {
+        String[] images = new String[1];
         try {
-            String[] images = getAssets().list("images/");
+            images = getAssets().list("images/");
             imgArr = new ArrayList<String>(Arrays.asList(images));
             imgArr.remove("clock_font.png");
             imgArr.remove("android-logo-mask.png");
             imgArr.remove("android-logo-shine.png");
             imgArr.remove("clock_font.png");
             imgArr.remove("progress_font.png");
-            System.out.println("images"+imgArr);
-        } catch (IOException e) {
-            e.getLocalizedMessage();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
         }
         Collections.sort(imgArr);
-        arrayList=imgArr.subList(0,imgArr.size()-1);
-        try {
-            InputStream ims = getAssets().open("images/"+arrayList.get(levelNo));
-            Drawable d = Drawable.createFromStream(ims, null);
-            imageView.setImageDrawable(d);
-            ims.close();
-        } catch (IOException e) {
+        arrayList=imgArr.subList(0,imgArr.size());
+        InputStream inputStream = null;
+        try
+        {
+            inputStream = getAssets().open("images/"+arrayList.get(levelNo));
+            Drawable drawable = Drawable.createFromStream(inputStream, null);
+            imageView.setImageDrawable(drawable);
+            inputStream.close();
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
-
     @Override
     public void onClick(View v) {
         for(int i=0;i<btn.length;i++){

@@ -13,18 +13,19 @@ public class MainActivity extends AppCompatActivity {
     TextView txt1,txt2;
     public static SharedPreferences preferences;
     public static SharedPreferences.Editor editor;
+    int levelNo=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        txt1=findViewById(R.id.activity_main_txt1);
-        txt2=findViewById(R.id.activity_main_txt2);
+        txt1=findViewById(R.id.continue_button);
+        txt2=findViewById(R.id.puzzles);
 
         preferences=getSharedPreferences("myPref",MODE_PRIVATE);
         editor=preferences.edit();
-        int levelNo=preferences.getInt("levelNo",0);
+        levelNo=preferences.getInt("levelNo",0);
 
         txt1.setOnClickListener(new View.OnClickListener() {
             @Override

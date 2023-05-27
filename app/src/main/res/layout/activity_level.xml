@@ -1,38 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@drawable/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2.2"
-        android:text="Select Puzzle"
-        android:textSize="30sp"
-        android:gravity="center"
-        android:textStyle="italic|bold"
-        android:textColor="@color/purple_700">
+        android:layout_weight="2.25">
 
-    </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2.2"
+            android:text="Select Puzzle"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:textStyle="italic|bold"
+            android:textColor="@color/purple_700">
 
-    <GridView
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/gridview"
-        android:numColumns="4"
-        android:layout_weight="0.7"
-        >
+        android:layout_weight="0.7">
 
-    </GridView>
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/gridview"
+            android:numColumns="3"
+            android:layout_weight="0.7"
+            >
 
-    <ImageView
-        android:layout_width="@dimen/_110sdp"
+        </GridView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:layout_margin="@dimen/_15sdp"
-        android:layout_weight="2"
-        android:src="@drawable/next">
+        android:layout_weight="2.2">
 
-    </ImageView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:id="@+id/back"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:layout_weight="1"
+            android:src="@drawable/back">
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"></TextView>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:id="@+id/next"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/next">
+
+        </ImageView>
+
+    </LinearLayout>
+
 </LinearLayout>
